@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowState Cloud - Task Tracker</title>
+</head>
+<body>
+    <div style="max-width: 600px; margin: 40px auto; font-family: sans-serif;">
+        <a href="{{ url_for('home') }}">← Back to Home</a>
+        <h1>Task Tracker</h1>
+
+        <!-- Add Task Form -->
+        <section style="margin-bottom: 30px;">
+            <h3>Create a New Task</h3>
+            <form action="{{ url_for('tasks') }}" method="POST">
+                <input type="text" name="title" placeholder="Enter task title..." required style="padding: 8px; width: 70%;">
+                <button type="submit" style="padding: 8px 16px;">Add Task</button>
+            </form>
+        </section>
+
+        <hr>
+
+        <!-- Task List Display -->
+        <section>
+            <h3>Your Tasks</h3>
+            {% if tasks %}
+                <ul style="list-style: none; padding: 0;">
+                    {% for task in tasks %}
+                        <style>
+                            li { padding: 10px; border-bottom: 1px solid #ccc; }
+                        </style>
+                        <li>
+                            {% if task.is_completed %}
+                                <s>{{ task.title }}</s> <span>(Done)</span>
+                            {% else %}
+                                <strong>{{ task.title }}</strong>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No tasks found. Add your first task above!</p>
+            {% endif %}
+        </section>
+    </div>
+</body>
+</html>
